@@ -1,1 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Anniversary ❤️</title>
 
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#ffd6e7,#fff0f6);
+overflow:hidden;
+height:100vh;
+}
+
+.page{
+display:none;
+width:100%;
+height:100vh;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+padding:20px;
+text-align:center;
+}
+
+.active{
+display:flex;
+}
+
+h1{
+color:#ff4d88;
+margin-bottom:20px;
+}
+
+p{
+max-width:700px;
+line-height:1.8;
+color:#555;
+}
+
+button{
+margin-top:25px;
+padding:14px 28px;
+border:none;
+border-radius:30px;
+background:#ff4d88;
+color:white;
+font-size:1rem;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+/* LOADING */
+
+.loader-box{
+width:300px;
+height:25px;
+background:white;
+border-radius:30px;
+overflow:hidden;
+margin-top:20px;
+}
+
+.loader{
+height:100%;
+width:0%;
+background:#ff4d88;
+}
+
+/* MEMORY PAGE */
+
+.memory-scene{
+position:relative;
+width:100%;
+height:100%;
+overflow:hidden;
+background:url('https://images.unsplash.com/photo-1514565131-fce0801e5785?q=80&w=2070') center/cover;
+}
+
+.table{
+position:absolute;
+bottom:0;
+width:100%;
+height:35%;
+background:
+linear-gradient(45deg,#444 25%,transparent 25%),
+linear-gradient(-45deg,#444 25%,transparent 25%),
+linear-gradient(45deg,transparent 75%,#444 75%),
+linear-gradient(-45deg,transparent 75%,#444 75%);
+background-size:40px 40px;
+background-position:0 0,0 20px,20px -20px,-20px 0;
+background-color:#ddd;
+}
+
+/* CAKE */
+
+.cake{
+position:absolute;
+left:50%;
+bottom:22%;
+transform:translateX(-50%);
+width:180px;
+height:120px;
+background:#fff;
+border-radius:15px;
+box-shadow:0 10px 20px rgba(0,0,0,.2);
+}
+
+.cake:before{
+content:"";
+position:absolute;
+top:15px;
+width:100%;
+height:20px;
+background:#ff4d88;
+}
+
+.cake:after{
+content:"🎂";
+position:absolute;
+font-size:70px;
+top:-45px;
+left:50%;
+transform:translateX(-50%);
+}
+
+/* PHOTO FRAMES */
+
+.frame{
+position:absolute;
+width:150px;
+height:180px;
+background:white;
+padding:8px;
+box-shadow:0 5px 15px rgba(0,0,0,.3);
+border-radius:5px;
+}
+
+.frame img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.f1{left:8%;bottom:20%;transform:rotate(-8deg);}
+.f2{left:25%;bottom:25%;transform:rotate(5deg);}
+.f3{right:25%;bottom:25%;transform:rotate(-5deg);}
+.f4{right:8%;bottom:20%;transform:rotate(8deg);}
+
+/* LETTER */
+
+.letter{
+position:absolute;
+right:45%;
+bottom:13%;
+background:white;
+padding:15px;
+border-radius:10px;
+cursor:pointer;
+box-shadow:0 5px 15px rgba(0,0,0,.2);
+transition:.3s;
+}
+
+.letter:hover{
+transform:scale(1.05);
+}
+
+.popup{
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:white;
+width:90%;
+max-width:500px;
+padding:30px;
+border-radius:20px;
+box-shadow:0 0 30px rgba(0,0,0,.3);
+z-index:999;
+}
+
+.popup h2{
+color:#ff4d88;
+margin-bottom:15px;
+}
+
+.close{
+margin-top:20px;
+}
+
+/* FLOATING HEARTS */
+
+.heart{
+position:absolute;
+font-size:20px;
+animation:float 8s linear infinite;
+opacity:.7;
+}
+
+@keyframes float{
+0%{
+transform:translateY(100vh);
+opacity:0;
+}
+20%{
+opacity:1;
+}
+100%{
+transform:translateY(-120px);
+opacity:0;
+}
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+
+<div class="page active" id="page1">
+
+<h1>Happy One Month Anniversary ❤️</h1>
+
+<p>
+Baby, thank you for every smile, every laugh, every late-night conversation,
+and every moment we've shared together. You make my days brighter and my heart
+happier than I ever thought possible. Every memory with you is special, and
+I can't wait to create thousands more. You mean the world to me and I love you
+more than words could ever explain. ❤️
+</p>
+
+<button onclick="nextPage(2)">
+Open Your Surprise ❤️
+</button>
+
+</div>
+
+<!-- PAGE 2 -->
+
+<div class="page" id="page2">
+
+<h1>Happy Anniversary Baby ❤️</h1>
+
+<p>Are you ready to see something special?</p>
+
+<button onclick="startLoading()">Yes 💕</button>
+<button onclick="startLoading()">Of Course 💖</button>
+
+</div>
+
+<!-- PAGE 3 -->
+
+<div class="page" id="page3">
+
+<h1>Loading Our Memories ❤️</h1>
+
+<div class="loader-box">
+<div class="loader" id="loader"></div>
+</div>
+
+<h2 id="percent">0%</h2>
+
+</div>
+
+<!-- PAGE 4 -->
+
+<div class="page" id="page4">
+
+<div class="memory-scene">
+
+<div class="frame f1">
+<img src="photo1.jpg">
+</div>
+
+<div class="frame f2">
+<img src="photo2.jpg">
+</div>
+
+<div class="frame f3">
+<img src="photo3.jpg">
+</div>
+
+<div class="frame f4">
+<img src="photo4.jpg">
+</div>
+
+<div class="cake"></div>
+
+<div class="letter" onclick="openLetter()">
+💌 Click Me
+</div>
+
+<div class="table"></div>
+
+</div>
+
+</div>
+
+<!-- POPUP LETTER -->
+
+<div class="popup" id="popup">
+
+<h2>To My Love ❤️</h2>
+
+<p>
+Thank you for the most amazing month of my life.
+Every day with you feels like a dream I never want to wake up from.
+You make me smile without trying and make ordinary moments feel magical.
+
+Thank you for your love, your patience, your kindness,
+and for being the person I can always count on.
+
+I love you more than words can explain and I can't wait
+for all the memories we'll make together.
+
+Happy Anniversary Baby ❤️
+</p>
+
+<button class="close" onclick="closeLetter()">
+Close ❤️
+</button>
+
+</div>
+
+<script>
+
+function nextPage(page){
+document.querySelectorAll('.page').forEach(p=>{
+p.classList.remove('active');
+});
+
+document.getElementById('page'+page).classList.add('active');
+}
+
+function startLoading(){
+
+nextPage(3);
+
+let width=0;
+
+let interval=setInterval(()=>{
+
+width++;
+
+document.getElementById("loader").style.width=width+"%";
+document.getElementById("percent").innerText=width+"%";
+
+if(width>=100){
+
+clearInterval(interval);
+
+setTimeout(()=>{
+nextPage(4);
+createHearts();
+},700);
+
+}
+
+},30);
+
+}
+
+function openLetter(){
+document.getElementById("popup").style.display="block";
+}
+
+function closeLetter(){
+document.getElementById("popup").style.display="none";
+}
+
+function createHearts(){
+
+setInterval(()=>{
+
+let heart=document.createElement("div");
+
+heart.classList.add("heart");
+
+heart.innerHTML="❤️";
+
+heart.style.left=Math.random()*100+"vw";
+
+heart.style.fontSize=(Math.random()*25+15)+"px";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},8000);
+
+},300);
+
+}
+
+</script>
+
+</body>
+</html>
